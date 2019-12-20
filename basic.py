@@ -86,6 +86,27 @@ elif x<10 :
 else :
     print('something else')
 
+money = True
+if money:
+    print('택시를 타고 가라')
+else:
+    print('걸어가라')
+
+pocket = ['[paper', 'money', 'cellphone']
+if 'money' in pocket:
+    pass  # 조건문이 아무 일도 하지 않게 설정하고 싶을 때
+else:
+    print('카드를 꺼내라')
+
+pocket = ['money', 'card']
+if 'money' in pocket:
+    print('택시를 타고')
+elif 'card' in pocket:
+    print('택시를 타고')
+else:
+    print('걸어가라')
+
+
 
 # 에러로 인한 프로그램 중단 대비
 # try/except
@@ -279,6 +300,51 @@ while True :
 print('Done!')
 
 
+prompt="""
+1. Add
+2. Del
+3. List
+4. Quit
+
+Enter number: 
+"""
+
+print(prompt)
+
+number=0
+while number!=4 :
+    print(prompt)
+    number=int(input())
+
+# while 문을 강제로 나가고 싶을 때
+coffee=10
+money=300
+while money : # money가 0이 아닌 이상 계속 돌아감
+    print('돈을 받았으니 커피를 줍니다')
+    coffee=coffee-1
+    print('남은 커피의 양은 %d개입니다' %coffee)
+    if coffee==0:
+        print('커피가 다 떨어졌습니다. 판매를 중지합니다')
+        break
+
+
+# while문의 맨 처음으로 돌아가기
+
+a=0
+while a<10 :
+    a=a+1
+    if a % 2==0 : continue # a를 2로 나누었을 때 나머지가 0인 경우
+    print(a)
+
+
+# 무한루프일 경우 Ctrl+c로 빠져나감
+
+while True :
+    print('cccc')
+
+
+
+
 # for loop
 
 for i in [5, 4, 3, 2, 1] :
@@ -411,6 +477,8 @@ while True :
 
 # print('All done')
 print(tot, num, tot/num)
+
+
 
 
 

@@ -461,4 +461,101 @@ lssum
 
 
 
+# 연습문제
+# Q1
+score={'국어':80, '영어':75, '수학':55}
+score.values()
+mean=sum(score.values())/3
+mean
+
+
+# Q2
+
+i=0
+even=list()
+while i<1000 :
+    even.append(i*2)
+    i=i+1
+even
+
+num=13
+if num in even :
+    print('짝수')
+else :
+    print('홀수')
+
+
+# Q3
+pin="881120-1068234"
+yyyymmdd=pin.split('-')[0]
+num=pin.split('-')[1]
+yyyymmdd
+num
+
+
+# Q4
+num[0]
+
+
+# Q5
+a='a:b:c:d'
+b=a.replace(':', '#')
+b
+
+
+# Q6
+a=[1, 3, 5, 4, 2]
+a.sort()
+a
+a.reverse()
+a
+
+
+# Q7
+a=['Life', 'is', 'too', 'short']
+result=' '.join(a)
+result
+
+
+# Q8
+a=(1,2,3)
+b=(4,)
+a+b
+
+
+# Q9
+a=dict()
+a['name']='python'
+a[('a,')]='python'
+a[[1]]='python' # list는 key 자리에 올 수 없음
+a[250]='python'
+
+
+# Q10
+a={'A':90, 'B':80, 'C':70}
+result=a['B']
+result
+
+
+# Q11
+a=[1, 1, 1, 2, 2, 3, 3, 3, 4, 4, 5]
+aSet=set(a)
+aSet
+
+b=list(aSet)
+b
+
+
+# Q12
+a=b=[1,2,3] # 같은 주소값에 저장되므로 같이 바뀜
+a[1]=4
+b
+a=[1,2,3]
+b=a[:]
+
+a[1]=4
+b
+
+
+
 
