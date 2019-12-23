@@ -271,6 +271,60 @@ xp=computepay(fr, fh) # 반환한 pay값을 xp에 할당
 print('pay:', xp)
 
 
+# 입력값이 없는 함수
+def say() :
+    return 'Hi'
+say()
+
+
+# 결과값이 없는 함수
+def add(a, b) :
+    print("%d, %d의 합은 %d입니다." % (a, b, a+b))
+add(3,4)
+a=add(3,4)
+
+print(a)
+
+
+# 입력값도 결과값도 없는 함수
+def say() :
+    print('Hi')
+say()
+
+
+def add_many(*args) :
+    result=0
+    for i in args :
+        result=result + i
+    return result
+
+add_many(1,2,3,4)
+
+
+def add_mul(choice, *args) :
+    if choice == "add" :
+        result=0
+        for i in args :
+            result=result+i
+    elif choice == "mul" :
+        result=1
+        for i in args :
+            result = result*i
+    return result
+
+add_mul('add', 1,2,3,4,5)
+
+
+# 키워드 파라미터
+def print_kwangs(**kwangs) :
+    print(kwangs)
+
+
+print_kwangs(a=1, name='foo')
+
+
+
+
 
 # while loof
 
@@ -458,6 +512,17 @@ print('after', smallest)
 # boolean, None 타입 자료형에만 사용하는 것이 바람직함
 
 
+add=0
+for i in range(1, 11) :
+    add=add+i
+print(add)
+
+for i in range(2, 10) :
+    for j in range(1, 10) :
+        print(i*j, end='') # end=' ' : 한줄씩 출력
+    print(' ') # 줄 간격
+
+
 # ex 5.1
 
 num=0
@@ -478,6 +543,167 @@ while True :
 # print('All done')
 print(tot, num, tot/num)
 
+
+# Q1
+a='Life is too short, you need python'
+
+if 'wife' in a :
+    print('wife')
+elif 'python' in a and 'you' not in a :
+    print('python')
+elif 'shirt' not in a :
+    print('shirt')
+elif 'need' in a :
+    print('need')
+else :
+    print('none')
+
+
+# Q2
+result=0
+i=1
+while i <=1000 :
+    if i%3==0 :
+        result+=i
+        i+=i
+print(result)
+
+
+# Q3
+i=0
+while True :
+    i+=1
+    if i>5 : break
+    print('*'*i)
+
+
+# Q4
+for i in range(1, 101) :
+    print(i)
+
+
+# Q5
+A=[70, 60, 55, 75, 95, 90, 80, 80, 85, 100]
+total=0
+for score in A :
+    total+=score
+    average=total/len(A)
+print(average)
+
+
+# Q6
+numbers=[1, 2, 3, 4, 5]
+result=[number*2 if number%2 !=0]
+print(result)
+
+
+
+
+# 파일 읽고 쓰기
+f=open("새파일.txt", 'w')
+for i in range(1, 11) :
+    data="%d번째 줄입니다.\n" % i
+    f.write(data) # 한글 깨짐
+f.close()
+
+
+# 현재 디렉토리
+import os
+print(os.getcwd())
+
+
+# 파일 읽는 방법
+f=open('새파일.txt', 'r')
+line=f.readline()
+print(line) # 첫번째 줄 출력
+
+f=open('새파일.txt', 'r')
+while True :
+    line=f.readline()
+    if not line : break
+    print(line)
+f.close()
+
+f=open('새파일.txt', 'r')
+lines=f.readlines()
+for line in lines :
+    print(line)
+f.close()
+
+f=open('새파일.txt', 'r')
+data=f.read()
+print(data)
+
+
+# 원래 있던 파일에 새로운 내용을 추가할 경우
+f=open('새파일.txt', 'a')
+for i in range(11, 20) :
+    data = "%d 번째 줄입니다.\n" % i
+    f.write(data)
+f.close()
+
+
+# Q1
+def is_odd(number) :
+    if number % 2 != 0 :
+        return True
+    else :
+        return False
+
+is_odd(3)
+
+# Q2
+def avg_numbers(*args) :
+    result=0
+    for i in args :
+        result+=i
+    return print(result/len(args))
+
+avg_numbers(1,2)
+avg_numbers(1,2,3,4,5)
+
+# Q3
+input1=input("첫번째 숫자를 입력하세요:") # input은 무조건 문자열로 변환
+input2=input("두번째 숫자를 입력하세요:")
+
+total = int(input1) + int(input2)
+print("두 수의 합은 %s 입니다" % total)
+
+
+# Q4
+print("you""need""python")
+print("you"+"need"+"python")
+print("you","need","python")
+print("".join(["you","need","python"]))
+
+f1=open("test.txt", 'w')
+f1.write("Life is too short")
+f1.close()
+
+f2=open("test.txt", 'r')
+line=f2.readline()
+print(line)
+f2.close()
+
+# Q6
+user_input=input("저장할 내용을 입력하세요:")
+f=open('test.txt', 'a')
+f.write(user_input)
+f.write("\n")
+f.close()
+
+
+# Q7
+f=open('test.txt', 'r')
+body=f.read()
+print(body)
+f.close()
+
+body = body.replace("java", "python")
+
+f=open('test.txt', 'w')
+f.write(body)
+f.close()
 
 
 
