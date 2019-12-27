@@ -425,6 +425,65 @@ print(jjj)
 ooo={}
 
 
+# histogram 코드
+counts=dict()
+names = ['csev', 'cwen', 'csev', 'zqian', 'cwen']
+for name in names :
+    if name not in counts :
+        counts[name] = 1
+    else :
+        counts[name] = counts[name] + 1
+print(counts)
+
+
+# get 함수 이용
+if name in counts :
+    x=counts[name]
+else :
+    x=0
+# get을 이용한 같은 코드
+x=counts.get(name, 0) # 이미 존재하는 키면 키의 값을 반환하고 키가 존재하지 않으면 기본값을 반환
+
+
+counts=dict()
+names = ['csev', 'cwen', 'csev', 'zqian', 'cwen']
+for name in names :
+    counts[name] = counts.get(name, 0) + 1
+print(counts)
+
+
+
+# counting pattern
+counts=dict()
+print('Enter a line of text:')
+line=input('')
+
+words=line.split()
+
+for word in words :
+    counts[word] = counts.get(word, 0) + 1
+print('Counts', counts)
+
+
+counts = {'chunk' : 1, 'fred' : 42, 'jan' : 100}
+for key in counts :
+    print(key, counts[key])
+
+jjj = {'chunk' : 1, 'fred' : 42, 'jan' : 100}
+print(list(jjj))
+
+print(jjj.keys())
+print(jjj.values())
+print(jjj.items()) # 튜플로 출력
+
+for aaa, bbb in jjj.items() :
+    print(aaa, bbb)
+
+
+
+
+
+
 
 
 # 점프 투 파이썬 연습문제
