@@ -619,6 +619,45 @@ b
 # github 저장 확인
 
 
+# tuple
+
+d=dict()
+d['csev'] = 2
+d['cwen'] = 4
+d.items()
+
+for (k, v) in d.items() :
+    print(k,v)
+
+
+# tuples are comparable
+
+(0, 1, 2) < (5, 1, 2)
+
+(0, 1, 20000) < (0, 3, 4) # 1보다 3이 큰 것만 고려함. 뒤에 숫자는 고려 x
+
+('Jones', 'Sally') < ('Jones', 'Sam') # l보다 m이 크므로 True
+
+
+# sorting lists of tuples
+d={'a':10, 'b':1, 'c':22}
+d.items()
+t=sorted(d.items())
+
+for k,v in t:
+    print(k,v)
+
+
+# sort by values instead of key
+c={'a':10, 'b':1, 'c':22}
+tmp=list()
+for k,v in c.items() :
+    tmp.append((v,k))
+print(tmp)
+
+type(tmp)
+
+sorted(tmp, reverse=True)
 
 
 

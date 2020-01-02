@@ -141,12 +141,50 @@ for M in range(1, 10) :
 
 
 # 10950
+T=int(input())
+for i in range(T) :
+    A, B=input().split()
+    print(int(A)+int(B))
+
+# 15552
+T=sys.stdin.readline()
+for i in range(T) :
+    A,B=map(int, sys.stdin.readline().split())
+    print(A+B) # 실패
+
+# 11021
+T=int(sys.stdin.readline())
+
+for i in range(T) :
+    A,B=sys.stdin.readline().split()
+    number=i+1
+    print('Case #%d:'%number, int(A)+int(B))
+# 실패
+
+T = int(input())
+for i in range(1, T + 1):
+    a, b = map(int, input().split())
+    print('Case #%d: %d' %(i, a + b))
+
+
+# 11022
+T = int(input())
+for i in range(1, T + 1):
+    a, b = map(int, input().split())
+    print('Case #%d: %d + %d = %d' %(i, a, b, a+b))
+
+
+# 10871
+N,X=map(int, input().split())
+k=list(map(int, input().split()))
+for i in k:
+    if i<X:
+        print(i, end=' ')
 
 
 # 8393
 n=int(input())
 m=0
-
 for i in range(1,n+1) :
     m=m+i
 print(m)
@@ -177,28 +215,79 @@ for i in range(1, N+1) :
 
 
 # while
+
+# 10952
+repeat=int(input())
+i=0
+while i <= repeat :
+    i=i+1
+    A, B = map(int, input().split())
+    print(A+B)
+    if i== repeat:
+        print(0,0) # 런타임 에러
+
+while True:
+    A, B = map(int, input().split())
+    if A == 0 and B == 0:
+        break
+    print(A+B)
+
+
+# 10951
+repeat=int(input())-1
+i=0
+while i <= repeat :
+    i=i+1
+    A, B = map(int, input().split())
+    print(A+B) # 런타임 에러
+
+while True:
+    try:
+        a, b = map(int, input().split())
+        print(a+b)
+    except:
+        break
+
+
+
+
 # 1110
-N='26'
-K=str(int(N[0])+int(N[-1]))
-N[-1]+K[-1]
+N=int(input()) # 26
+n=N # 26
 
-N='68'
-K=str(int(N[0])+int(N[-1]))
-N[-1]+K[-1]
+result=0
+second=0
+counter=1
+while True :
+    second= N%10 # 6
+    N=N//10 # 2
+    result=second+N # 2+6=8
+    N=(second*10)+(result%10) # (6*10)+8=68
 
-N='84'
-K=str(int(N[0])+int(N[-1]))
-N[-1]+K[-1]
+    if N==n:
+        break
+    else:
+        counter=counter+1
+print(counter)
 
-N='42'
-K=str(int(N[0])+int(N[-1]))
-N[-1]+K[-1] # 26
 
-N=input()
-while N!=new :
-    K = str(int(N[0]) + int(N[-1]))
-    N=N[-1] + K[-1]
+# 10818
+N=int(input())
+if not (1<=N<=1000000):
+    exit()
 
+A=list(map(int, input().split()))
+print(min(A), max(A))
+
+# 2562
+MAX=0
+INDEX=0
+for i in range(9):
+    N=int(input())
+    if N>MAX:
+        MAX=N
+        INDEX=i+1
+print(MAX, INDEX, end=' ')
 
 
 
