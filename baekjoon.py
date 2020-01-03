@@ -290,12 +290,178 @@ for i in range(9):
 print(MAX, INDEX, end=' ')
 
 
+# 2920
+c,d,e,f,g,a,b,C=1,2,3,4,5,6,7,8
+code=list(map(int, input().split()))
+acode=sorted(code)
+dcode=sorted(code, reverse=True)
+
+if code==acode :
+    print('ascending')
+elif code==dcode :
+    print('descending')
+else :
+    print('mixed')
 
 
+# 2577
+A,B,C=map(int, input().split())
+N=str(A*B*C)
+c0,c1,c2,c3,c4,c5,c6,c7,c8,c9=0,0,0,0,0,0,0,0,0,0
+for i in range(0,len(N)):
+    if N[i] == '0':
+        c0+=1
+    elif N[i] == '1':
+        c1+=1
+    elif N[i] == '2':
+        c2 += 1
+    elif N[i] == '3':
+        c3 += 1
+    elif N[i] == '4':
+        c4 += 1
+    elif N[i] == '5':
+        c5 += 1
+    elif N[i] == '6':
+        c6 += 1
+    elif N[i] == '7':
+        c7 += 1
+    elif N[i] == '8':
+        c8 += 1
+    elif N[i] == '9':
+        c9 += 1
+print(c0,c1, c2, c3, c4, c5, c6, c7, c8, c9, sep='\n') # 런타임 에러
 
 
+A,B,C=map(int, input().split())
+N=str(A*B*C) # '17037300'
+count=list()
+for i in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]:
+    for j in range(0,len(N)):
+        if N[j] == 'i': # N[0]='0'이면 count[0]=1, N[1]='0'이면 count[0]=2
+            count[i]=i+1
+        else :
+            count[i]=0
+print(count)
+
+import sys
+A=int(sys.stdin.readline())
+B=int(sys.stdin.readline())
+C=int(sys.stdin.readline())
+
+N=list(str(A*B*C))
+
+for i in range(10) :
+    print(N.count(str(i)))
 
 
+# 3052
+import sys
+N=list()
+K=list()
+for i in range(0,10):
+    N.append(int(sys.stdin.readline()))
+    K.append(N[i]%42)
+print(len(set(K)))
+
+
+# 1546
+
+import sys
+N=int(sys.stdin.readline())
+score=list(map(int, sys.stdin.readline().split()))
+newscore=list()
+for i in score :
+    newscore.append((i/max(score))*100)
+print(sum(newscore)/N)
+
+# 8958
+# "OOXXOXXOOO"의 점수는 1+2+0+0+1+0+0+1+2+3 = 10점이다.
+import sys
+N=int(sys.stdin.readline())
+result=list()
+count=0
+for i in range(N):
+    result.append(sys.stdin.readline())
+# print(result)
+    for j in range(80) :
+        if result[i][j]=='O' :
+            count=count+1
+        elif result[i][j]=='X':
+            count=count+0
+print(count)
+
+
+# 4344
+import sys
+C=int(sys.stdin.readline())
+
+upp=0
+for i in range(C) :
+    score=list()
+    score=list(map(int, sys.stdin.readline().split()))
+# print(score)
+    mean=sum(score)/score[0]
+    for j in range(len(score)):
+        if score[j]>mean:
+            upp+=1
+    rate=upp/score[0]
+print(rate) # 오류
+
+# chr
+
+# 11654
+c=str(input())
+print(ord(c))
+
+# 11720
+import sys
+N=int(sys.stdin.readline())
+result=sys.stdin.readline()
+out=0
+for i in range(N):
+    out+=int(result[i])
+print(out)
+
+# 10809
+import sys
+s=sys.stdin.readline()
+from string import ascii_lowercase
+alpha=list(ascii_lowercase)
+
+newalpha=list()
+for i in alpha:
+    if i in s : #'baekjoon' 안에 'a'가 있다면
+        index=s.find(i) # 'baekjoon'에서 'a'의 위치
+        newalpha.append(index)
+    elif i not in s :
+        newalpha.append(-1)
+# print(newalpha) 리스트로 출력하면 안됨.
+for j in range(len(newalpha)):
+    print(newalpha[j], end=' ')
+
+
+# 2675
+import sys
+T=int(sys.stdin.readline())
+
+result=str()
+for i in range(T) :
+    A,B=sys.stdin.readline().split()
+    A=int(A)
+    for j in range(len(B)):
+        result+=B[j]*A
+print(result) # 각각 나와야됨
+
+import sys
+T=int(sys.stdin.readline()) # 2
+
+for i in range(T) : # i에 0,1 대입, 두번 반복
+    A,B=sys.stdin.readline().split() # 3 ABC, 5 /HTP
+    A=int(A) # 3
+    result = str()
+    for j in range(len(B)): # j에 0,1,2 대입, 0,1,2,3 대입
+        result+=str(B[j]*A) # AAABBBCCC+/////HHHHHTTTTTPPPPP
+    print(result)
 
 
 
