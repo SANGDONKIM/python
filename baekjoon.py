@@ -464,6 +464,26 @@ for i in range(T) : # i에 0,1 대입, 두번 반복
     print(result)
 
 
+# 1157
+import sys
+word = sys.stdin.readline().upper().rstrip()
 
+from string import ascii_uppercase
+alphabet=list(ascii_uppercase)
 
+count = list()
+for i in range(len(alphabet)) :
+    spell = alphabet[i]
+    num = word.count(spell)
+    count.append(num)
+# print(count) -- > [0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 1, 0, 0, 1, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0]
+    for j in count :
+        if j == max(count) :
+            index = count.index(j)
+print(alphabet[index])
 
+c
+for i in range(len(c)) :
+    l=c[i]
+    if l == max(c) :
+        print(i)
