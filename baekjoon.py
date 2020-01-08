@@ -477,13 +477,49 @@ for i in range(len(alphabet)) :
     num = word.count(spell)
     count.append(num)
 # print(count) -- > [0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 1, 0, 0, 1, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0]
+if count.count(max(count)) >= 2 :
+    print('?')
+else :
     for j in count :
         if j == max(count) :
             index = count.index(j)
-print(alphabet[index])
+    print(alphabet[index])
 
-c
-for i in range(len(c)) :
-    l=c[i]
-    if l == max(c) :
-        print(i)
+
+
+# 1152
+import sys
+sentence = sys.stdin.readline().rstrip().split()
+print(len(sentence))
+
+
+# 2908
+import sys
+A,B=sys.stdin.readline().split()
+rA = int(A[2]+A[1]+A[0])
+rB = int(B[2]+B[1]+B[0])
+if rA > rB :
+    print(rA)
+else :
+    print(rB)
+
+# 5622 # 모름
+import sys
+word = sys.stdin.readline().rstrip().upper()
+alphabet = ['ABC', 'DEF', 'GHI', 'JKL', 'MNO', 'PQRS', 'TUV', 'WXYZ']
+
+num = 0
+for i in range(len(word)) :
+    for j in alphabet :
+        if word[i] in j :
+            num +=alphabet.index(j) + 3
+print(num)
+
+
+
+
+# 2941
+import sys
+word = sys.stdin.readline().rstrip()
+
+

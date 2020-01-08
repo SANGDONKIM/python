@@ -396,3 +396,136 @@ facet.map(plt.scatter, 'total_bill', 'tip')
 # 스타일 변경
 
 sns.set_style('whitegrid')
+
+
+
+# 데이터 연결
+import pandas as pd
+df1 = pd.read_csv("C:/Users/sangdon/Desktop/python/doit_pandas-master/doit_pandas-master/data/concat_1.csv")
+df2 = pd.read_csv("C:/Users/sangdon/Desktop/python/doit_pandas-master/doit_pandas-master/data/concat_2.csv")
+df3 = pd.read_csv("C:/Users/sangdon/Desktop/python/doit_pandas-master/doit_pandas-master/data/concat_3.csv")
+
+df1.head()
+df2.head()
+df3.head()
+
+row_concat = pd.concat([df1, df2, df3]) # rbind와 동일
+print(row_concat)
+
+new_row_series = pd.Series(['n1', 'n2', 'n3', 'n4'])
+print(new_row_series)
+print(pd.concat(([df1, new_row_series]))) # 시리즈는 열 이름이 없기 때문에 새로운 열로 간주하여 0이라는 이름의 열을 추가함.
+
+
+new_row_df = pd.DataFrame([['n1', 'n2', 'n3', 'n4']], columns=['A', 'B', 'C', 'D'])
+print(new_row_df)
+
+print(pd.concat([df1, new_row_df]))
+
+# 데이터 프레임이 한개일 경우 append로 가능
+print(df1.append(new_row_df)) # index가 그대로 반영 됨
+
+data_dict = {'A': 'n1', 'B':'n2', 'C':'n3', 'D':'n4'}
+print(df1.append(data_dict, ignore_index=True)) # ignore_index : 데이터를 연결한 다음 인덱스를 0부터 다시 지정
+
+# 열 방향으로 데이터 연결 (cbind)
+
+col_concat = pd.concat([df1, df2, df3], axis = 1) # axis = 0 default
+print(col_concat)
+
+# 같은 열 이름이 겹치는 경우
+print(col_concat['A'])
+
+col_concat['new_col_list'] = ['n1', 'n2', 'n3', 'n4']
+print(col_concat)
+
+# 열 이름 중복 없애기
+print(pd.concat([df1, df2, df3], axis=1, ignore_index=True))
+
+
+# 열 이름 변경
+df1.columns = ['A', 'B', 'C', 'D']
+df2.columns = ['E', 'F', 'G', 'H']
+df3.columns = ['A', 'C', 'F', 'H']
+
+print(df1)
+print(df2)
+print(df3)
+
+row_concat = pd.concat([df1, df2, df3])
+print(row_concat)
+
+# 공통 열만 골라서 연결
+print(pd.concat([df1, df3], ignore_index=False, join = 'inner'))
+
+
+# 행방향 연결
+df1.index = [0, 1, 2, 3]
+df2.index = [4, 5, 6, 7]
+df3.index = [0, 2, 5, 7]
+
+print(df1)
+
+col_concat = pd.concat([df1, df2, df3], axis = 1)
+print(col_concat)
+
+# 공통 행만 연결
+
+print(pd.concat([df1, df3], axis = 1, join='inner'))
+
+
+person = pd.read_csv("C:/Users/sangdon/Desktop/python/doit_pandas-master/doit_pandas-master/data/survey_person.csv")
+site = pd.read_csv("C:/Users/sangdon/Desktop/python/doit_pandas-master/doit_pandas-master/data/survey_site.csv")
+survey = pd.read_csv("C:/Users/sangdon/Desktop/python/doit_pandas-master/doit_pandas-master/data/survey_survey.csv")
+visited = pd.read_csv("C:/Users/sangdon/Desktop/python/doit_pandas-master/doit_pandas-master/data/survey_visited.csv")
+
+person.head()
+site.head()
+survey.head()
+visited.head()
+
+visited_subset = visited.loc[[0,2,6], ]
+print(visited_subset)
+o2o_merge = site.merge(visited_subset, left_on='name', right_on='site')
+print(o2o_merge)
+
+m2o_merge = site.merge(visited, left_on='name', right_on='site')
+print(m2o_merge)
+
+
+# merge 추가
+df1 = pd.DataFrame({'key':list('bbacaab'), 'data1':range(7)})
+df2 = pd.DataFrame({'key':list('abd'), 'data2':range(3)})
+
+df1
+df2
+
+pd.merge(df1, df2, on='key') # key 값이 공통인 열 3*1, 3*1. key 값이 공통인 열이 없을 경우 생략
+pd.merge(df1, df2, on='key', how = 'outer') # key 값이 공통이 아닌 열도 전부 추가
+
+pd.merge(df1, df2, on='key', how = 'left') # df1의 key가 고정되고 df2가 동일한 key 값을 갖을 때마다 여러번 달라붙음. 없을 경우 NaN
+pd.merge(df2, df1, on='key', how = 'left')
+
+pd.merge(df1, df2, on='key', how = 'right')
+
+
+df3 = pd.DataFrame({'key':list('bbacaab'),
+                   'data1':range(7)})
+df4 = pd.DataFrame({'key':list('ababd'),
+                   'data2':range(5)})
+
+pd.merge(df3, df4, on='key', how = 'inner')
+
+
+# 기준이 되는 열의 칼럼명이 key로 같지 않더라도 각 df에서 기준의 열을 인자로 지정하여 merge를 수행할 수 있음
+
+df5 = pd.DataFrame({'lkey':list('bbacaab'),
+                    'data1':range(7)})
+df6 = pd.DataFrame({'rkey':list('abd'),
+                    'data2':range(3)})
+
+pd.merge(df5, df6, left_on='lkey', right_on='rkey') # lkey와 rkey를 기준으로 값이 같은 것끼리 merge 수행
+
+
+
+
