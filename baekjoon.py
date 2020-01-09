@@ -146,11 +146,15 @@ for i in range(T) :
     A, B=input().split()
     print(int(A)+int(B))
 
+
 # 15552
-T=sys.stdin.readline()
+import sys
+T=int(sys.stdin.readline())
+
 for i in range(T) :
-    A,B=map(int, sys.stdin.readline().split())
-    print(A+B) # 실패
+    num =list(map(int, sys.stdin.readline().split()))
+    print(num[0]+num[1])
+
 
 # 11021
 T=int(sys.stdin.readline())
@@ -374,38 +378,52 @@ for i in score :
     newscore.append((i/max(score))*100)
 print(sum(newscore)/N)
 
-# 8958
+# 8958 : 모름
 # "OOXXOXXOOO"의 점수는 1+2+0+0+1+0+0+1+2+3 = 10점이다.
 import sys
 N=int(sys.stdin.readline())
-result=list()
-count=0
+
+result = list()
 for i in range(N):
-    result.append(sys.stdin.readline())
+    result = sys.stdin.readline().rstrip()
 # print(result)
-    for j in range(80) :
-        if result[i][j]=='O' :
-            count=count+1
-        elif result[i][j]=='X':
-            count=count+0
-print(count)
+    count = 0
+    cnt = 0 # 누적일 때 변수 하나 더 생성
+    for j in result : # j = 'OOXXOXXOOO'
+        for k in range(len(j)) : # k = 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
+            if j[k] == 'O' :
+                cnt+=1
+                count +=cnt
+            elif j[k] == 'X' :
+                count+=0
+                cnt = 0
+    print(count, sep = '\n')
+
+
+
+
+
+
+
+
+
 
 
 # 4344
 import sys
 C=int(sys.stdin.readline())
 
-upp=0
 for i in range(C) :
-    score=list()
-    score=list(map(int, sys.stdin.readline().split()))
-# print(score)
-    mean=sum(score)/score[0]
-    for j in range(len(score)):
-        if score[j]>mean:
-            upp+=1
-    rate=upp/score[0]
-print(rate) # 오류
+    N = list(map(int, sys.stdin.readline().split())) # 5 50 50 70 80 100
+    mean = sum(N[1:])/N[0]
+    more = list()
+    for j in N[1:] :
+        if j > mean :
+            more.append(j)
+        rate = len(more)/len(N[1:])*100
+        result = round(rate, 3)
+    print("%0.3f%%" % result)
+
 
 # chr
 
@@ -517,9 +535,52 @@ print(num)
 
 
 
+# function
 
-# 2941
+# 15596
+
+def solve(a) :
+    result = 0
+    for i in a :
+        result += i
+    return  result
+
+# 1712 모름
+
 import sys
-word = sys.stdin.readline().rstrip()
+A,B,C = map(int, sys.stdin.readline().split()) # 1000 70 170
+
+num = 0
+while True:
+    num +=1
+    sales = A+(B*num) # 1000+(70*1) = 1070, ... 1000+(70*11)=1770
+    total = C*num # 170*1, ... 170*11=1870
+    if sales < total :
+        break
+print(num) # 시간 초과
+
+import sys
+A,B,C = map(int, sys.stdin.readline().split()) # 1000 70 170
+
+num = 0
+if B<C:
+    num = A//(C-B)
+    print(num+1)
+else :
+    print(-1)
 
 
+# 2839 모름
+import sys
+N =int(sys.stdin.readline())
+
+num = int()
+while True :
+     if (N%5) == 0 :
+         print(N//5)
+         break
+     elif (N%5) == 3 :
+         N=N-3
+         print((N//5)+((N%5)//3))
+
+# 1978
