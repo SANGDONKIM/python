@@ -528,4 +528,166 @@ pd.merge(df5, df6, left_on='lkey', right_on='rkey') # lkey와 rkey를 기준으�
 
 
 
+# 누락값
+from numpy import NaN, NAN, nan
+import pandas as pd
+print(pd.isnull(NaN)) # 누락값 확인
+print(pd.notnull(NaN))
+
+
+# 누락값이 생기는 경우
+
+visited = pd.read_csv('C:/Users/sangdon/Desktop/python/doit_pandas-master/doit_pandas-master/data/survey_visited.csv')
+survey = pd.read_csv('C:/Users/sangdon/Desktop/python/doit_pandas-master/doit_pandas-master/data/survey_survey.csv')
+
+print(visited)
+
+# 1. 데이터를 합칠 때
+vs = visited.merge( survey, left_on = 'ident', right_on = 'taken')
+print(vs)
+
+# 2. 데이터를 입력할 때
+num_legs = pd.Series({'goat':4, 'amoeba':nan})
+print(num_legs)
+
+# 3. 범위를 지정하여 데이터를 추출할 때
+
+gapminder=pd.read_csv("C:/Users/sangdon/Desktop/python/doit_pandas-master/doit_pandas-master/data/gapminder.tsv", sep='\t')
+gapminder.head()
+
+life_exp = gapminder.groupby(['year'])['lifeExp'].mean()
+life_exp.head()
+
+print(life_exp.loc[range(2000, 2010), ]) # life_exp에 없었던 년도가 포함되므로 누락값 생성
+print(life_exp[life_exp.index>2000])
+
+
+# 누락값 개수 구하기
+
+# 1
+ebola = pd.read_csv('C:/Users/sangdon/Desktop/python/doit_pandas-master/doit_pandas-master/data/country_timeseries.csv')
+print(ebola.head())
+print(ebola.count())
+num_rows = ebola.shape[0]
+num_missing = num_rows - ebola.count()
+print(num_missing)
+
+# 2
+# ebola.isnull().sum()
+
+# 3
+import numpy as np
+np.count_nonzero(ebola.isnull()) # 배열에서 0이 아닌 값의 개수 세기
+np.count_nonzero(ebola['Cases_Guinea'].isnull())
+
+ebola.Cases_Guinea.value_counts(dropna = False).head() # value_counts() : 지정한 열의 빈도 구하기. dropna = False : 누락값 포함 빈도 구하기
+
+
+# 누락값 처리하기
+ebola.fillna(0).iloc[0:10, 0:5] # 누락값을 0으로 채우기
+new_data = {'Cases_Liberia':1, 'Cases_SierraLeone': 2}
+ebola.fillna(new_data).iloc[0:10, 0:5] # 열 별로 다른 값으로 누락값을 채울 때
+
+ebola.fillna(method = 'ffill').iloc[0:10, 0:5] # 누락값이 나타나기 전 행의 값으로 변경
+ebola.fillna(method = 'bfill').iloc[0:10, 0:5] # 누락값이 나타난 후 행의 값으로 변경
+
+ebola.interpolate().iloc[0:10, 0:5] # 누락값 양옆의 값을 이용하여 중간값을 만들어서 누락값 처리
+
+
+# 누락값 삭제
+ebola.shape
+ebola.dropna().shape # 누락값이 있는 전체 행 삭제
+
+
+
+# 누락값을 포함한 계산
+ebola_subset = ebola.loc[:, ['Cases_Guinea', 'Cases_Liberia', 'Cases_SierraLeone', 'Cases_multiple']]
+ebola_subset.head()
+ebola.Cases_Guinea.sum(skipna = True) # 누락값을 무시하고 계산
+ebola.Cases_Guinea.sum()
+ebola.Cases_Guinea.sum(skipna = False)
+
+
+
+# melt
+
+pew = pd.read_csv('C:/Users/sangdon/Desktop/python/doit_pandas-master/doit_pandas-master/data/pew.csv')
+pew.head()
+pew.iloc[:, 0:6].head()
+
+pew_long = pd.melt(pew, id_vars='religion', var_name='income', value_name = 'count') # id_vars 로 지정된 열을 제외한 나머지 열로 정리
+pew_long.head()
+
+# 2개 이상의 열을 고정하고 나머지 열을 행으로 바꾸기
+billboard = pd.read_csv('C:/Users/sangdon/Desktop/python/doit_pandas-master/doit_pandas-master/data/billboard.csv')
+billboard.head()
+billboard.shape
+
+
+billboard_long = pd.melt(billboard, id_vars=['year', 'artist', 'track', 'time', 'date.entered'], var_name = 'week', value_name='rating')
+billboard_long.head()
+
+
+ebola = pd.read_csv('C:/Users/sangdon/Desktop/python/doit_pandas-master/doit_pandas-master/data/country_timeseries.csv')
+ebola.columns
+
+ebola.iloc[:5, [0, 1, 2, 3, 10, 11]]
+
+ebola_long = pd.melt(ebola, id_vars=['Date', 'Day'])
+ebola_long.head()
+
+# 열 이름을 분리하고 데이터프레임에 추가하기
+variable_split = ebola_long.variable.str.split('_')
+variable_split.head()
+
+status_values = variable_split.str.get(0) # 0번째 index 데이터 한번에 추출
+country_values = variable_split.str.get(1)
+
+status_values.head()
+country_values.head()
+
+ebola_long['status'] = status_values
+ebola_long['country'] = country_values
+
+ebola_long.head()
+
+
+gapminder.head()
+gapminder.info()
+gapminder.describe()
+
+# 행 선택
+gapminder.query("country=='Korea, Rep.' & year == 2007")
+
+# 행 정렬
+gapminder.sort_values(by =['year', 'country']).head()
+
+# 열 변수 선택
+gapminder[['pop', 'gdpPercap']].head()
+
+# 변수 변환하기
+gapminder.\
+    assign(total_gdp = lambda x: (x['pop'] * x['gdpPercap'])).\
+    assign(le_gdp_ratio = lambda x: (x['lifeExp'] / x['gdpPercap'])).\
+    assign(lgrk = lambda x: x['le_gdp_ratio'] * 100).\
+    head()
+
+gapminder.aggregate(['mean', 'median'])
+
+# 랜덤 샘플링
+np.random.seed(12345)
+gapminder.sample(n=10)
+
+# 고유한 행 찾기
+
+gapminder.country.unique()
+gapminder.drop_duplicates(['country', 'year']).head()
+
+# group_by
+gapminder.\
+    query('year == 2007').\
+    groupby('continent').\
+    agg({'lifeExp':'median'})
+
+
 
